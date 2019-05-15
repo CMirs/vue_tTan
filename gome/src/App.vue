@@ -34,4 +34,11 @@ ul,li{
    
     display: none;
 } 
+.el-carousel__container {
+    position: relative;
+    height: 1.235rem!important;
+}
+.el-carousel__arrow{
+    display: none!important;
+}
 </style>

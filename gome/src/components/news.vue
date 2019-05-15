@@ -18,7 +18,23 @@
                             <p>{{minute_1}}:</p>
                             <p>{{sec_1}}</p>
                         </div>
-                        div.
+                        <div class="goods">
+                            <dl>
+                                <dt><img src="../assets/img/settime1.webp" alt=""></dt>
+                                <dd>￥ 9</dd>
+                                <p>￥29</p>
+                            </dl>
+                            <dl>
+                                <dt><img src="../assets/img/settime1.webp" alt=""></dt>
+                                <dd>￥ 9</dd>
+                                <p>￥29</p>
+                            </dl>
+                            <dl>
+                                <dt><img src="../assets/img/settime1.webp" alt=""></dt>
+                                <dd>￥ 9</dd>
+                                <p>￥29</p>
+                            </dl>
+                        </div>
                     </li>
                     <li>
                         <p style="color:#48a6ff">新品抢先</p><span>联想小新清新版</span><img
@@ -41,9 +57,9 @@
 </template>
 <script>
 
-   
 
-    
+
+
     export default {
         data() {
             return {
@@ -54,38 +70,36 @@
                 }, {
                     title: "投资金条 优惠购金"
                 }],
-              
+                // 时间初始状态
+                hour_1: '--',
+                minute_1: '--',
+                sec_1: '--'
             }
-        }, methods: {
-               time(){
+        }, created() {
+            this.time();
+        },
+        methods: {
+            time() {
                 let stopTime = new Date(2019, 5, 15, 12, 12, 12);
-    var nowTime = new Date();//取得现在的时间
-    var shicha = (stopTime - nowTime) / 1000;//最大的时间减去现在的
+                var Timer = setInterval(function () {
+                    var nowTime = new Date();
+                    var shicha = (stopTime - nowTime) / 1000;
 
-    var day = Math.floor(shicha / 60 / 60 / 24);
-    var hour_1 = Math.floor(shicha / 60 / 60 % 24);
-    var minute_1 = Math.floor(shicha / 60 % 60);
-    var sec_1 = Math.floor(shicha % 60);
-  
-    var Timer = setInterval(function () {
-                var nowTime = new Date();
-            var shicha =  (stopTime-nowTime)/1000;
 
-            var day  = Math.floor(shicha/60/60/24);
-            var hour_1 = Math.floor(shicha/60/60%24);
-            var minute_1 =Math.floor(shicha/60%60);
-            var sec_1 = Math.floor(shicha%60);
-            if(day==0&&hour==0&&minute==0&&second==0){
-                    //关闭定时器
-                    clearInterval(Timer);
-                }
-                console.log(555);
-                
-            }, 1000);
-               },
-              
-            
-             
+                    this.hour_1 = Math.floor((shicha / 60 / 60) % 24);
+                    this.minute_1 = Math.floor((shicha / 60) % 60);
+                    this.sec_1 = Math.floor(shicha % 60);
+                    if (this.hour_1 == 0 && this.minute_1 == 0 && this.sec_1 == 0) {
+                        //关闭定时器
+                        clearInterval(Timer);
+                    }
+                    // console.log(555);
+
+                }.bind(this), 1000);
+            },
+
+
+
         }
     }
 </script>
@@ -102,6 +116,7 @@
         /* width: 100%; */
         margin: .17rem;
         background: white;
+       border-radius: .1rem;
     }
 
     .usnew .u_top {
@@ -151,8 +166,8 @@
         border-bottom: 1px solid #d9d9ea
     }
 
-    .u_down ul li p {
-
+    .u_down ul li>p {
+        margin-bottom: .1rem;
         height: .18rem;
         font-size: .16rem;
         color: black;
@@ -164,6 +179,48 @@
 
     .u_down ul li:nth-child(1) p:nth-of-type(1) {
         float: left;
+    }
+
+    .u_down ul li .goods {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        height: 75%;
+        margin-top: .1rem;
+    }
+
+    .u_down ul li .goods dl {
+        width: 33.3%;
+        /* border: .001rem solid red; */
+    }
+
+    .u_down ul li .goods dl dt {
+        height: 60%;
+
+        /* background: url('../assets/img/settime1.webp')no-repeat center; */
+        /* background-size: contain; */
+    }
+
+    .u_down ul li .goods dl dt img {
+        width: 100%;
+    }
+
+    .u_down ul li .goods dl dd {
+        /* display: inline-block; */
+        line-height: .16rem;
+        vertical-align: middle;
+        color: #333;
+        font-weight: 700;
+        font-size: .12rem;
+        text-align: center;
+    }
+
+    .u_down ul li .goods dl p {
+        font-size: .01rem;
+        color: #919599;
+        text-decoration: line-through;
+        text-align: center;
+        width: 100%;
     }
 
     .u_down ul li .m_time {
@@ -182,10 +239,11 @@
 
     .u_down ul li .m_time p {
         font-size: .12rem;
-        padding: 0;
+        padding-top: .04rem;
         margin-top: -.04rem;
         -webkit-transform: scale(0.8);
         color: #d65656;
+        text-align: center;
     }
 
     .u_down ul li span {

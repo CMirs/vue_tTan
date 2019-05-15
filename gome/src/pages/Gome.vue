@@ -5,9 +5,9 @@
     <Lunbo />
     <div class="g_nav">
       <div class="g_nav_t">
-        <ul v-for="(item,index) in kinds" v-if="active == index" :key='index' class="g_nav1">
+        <ul v-for="(item,index) in kinds" :key='index'  v-show="active ==index" class="g_nav1">
           <!-- {{item}} -->
-          <li v-for="(items,idx) in item">
+          <li v-for="(items,idx) in item"  :key='idx' >
             <img :src="items.imgs">
             <p>{{items.title}}</p>
           </li>
@@ -19,6 +19,10 @@
       </ul>
       </div>
       <News/>
+    <Guild/>
+   <Srt/>
+   
+      <Top/>
       <Gfooter />
   </div>
 </template>
@@ -28,12 +32,18 @@
   import Gheader from '../components/Gheader.vue';
   import Lunbo from '../components/lunbo.vue';
   import News from '../components/news.vue';
+  import Guild from '../components/Guild.vue';
+  import Top from '../components/reTop.vue';
+  import Srt from '../components/Script.vue';
   export default {
     components: {
       Gfooter,
       Gheader,
       Lunbo,
-      News
+      News,
+      Guild,
+      Srt,
+      Top
     },
     data() {
       return {
