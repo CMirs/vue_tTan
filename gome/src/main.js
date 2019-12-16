@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 // 引入ui框架
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import echarts from 'echarts'
 
-Vue.use(ElementUI);
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 
@@ -15,12 +14,12 @@ import Vuex from "vuex"
 Vue.use(Vuex)
 
 import Home from './pages/Gome.vue'
-import Kind from './pages/Kind.vue'
-import Cart from './pages/Cart.vue'
-import youxuan from './pages/youxuan.vue'
-import My from './pages/My.vue'
-import reg from './pages/reg.vue'
-import login from './pages/login.vue'
+// import Kind from './pages/Kind.vue'
+// import Cart from './pages/Cart.vue'
+// import youxuan from './pages/youxuan.vue'
+// import My from './pages/My.vue'
+// import reg from './pages/reg.vue'
+// import login from './pages/login.vue'
 
 const routes = [ {
   path: '/',
@@ -49,31 +48,32 @@ const routes = [ {
       //   name:'home',
       //   component:Home
       // }]
-},{
-    path:"/kind",
-    name:"kind",
-    component:Kind
-  },{
-    path:'/cart',
-    name:'cart',
-    component:Cart
-  },{
-    path:'/youxuan',
-    name:'youxuan',
-    component:youxuan
-  },{
-    path:'/my',
-    name:'my',
-    component:My
-  },{
-    path:"/reg",
-    name:"reg",
-    component:reg
-  },{
-    path:'/login',
-    name:'login',
-    component:login
-  },
+},
+// ,{
+//     path:"/kind",
+//     name:"kind",
+//     component:Kind
+//   },{
+//     path:'/cart',
+//     name:'cart',
+//     component:Cart
+//   },{
+//     path:'/youxuan',
+//     name:'youxuan',
+//     component:youxuan
+//   },{
+//     path:'/my',
+//     name:'my',
+//     component:My
+//   },{
+//     path:"/reg",
+//     name:"reg",
+//     component:reg
+//   },{
+//     path:'/login',
+//     name:'login',
+//     component:login
+//   },
   {
     path:'/',
     name:'/home',

@@ -20,9 +20,13 @@ export default {
     margin: 0;
     padding: 0;
   }
+  #app{
+    height: 100%;
+  }
 html,body{
     /* 100px=26.67vw */
     font-size: 26.67vw;
+    height: 100%;
 }
 a{
   text-decoration: none;

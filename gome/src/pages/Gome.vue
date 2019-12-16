@@ -1,198 +1,315 @@
 <template>
-  <div>
-    <router-view></router-view>
-    <Gheader />
-    <Lunbo />
-    <div class="g_nav">
-      <div class="g_nav_t">
-        <ul v-for="(item,index) in kinds" :key='index'  v-show="active ==index" class="g_nav1">
-          <!-- {{item}} -->
-          <li v-for="(items,idx) in item"  :key='idx' >
-            <img :src="items.imgs">
-            <p>{{items.title}}</p>
-          </li>
-        </ul>
-      </div>
-      <ul class="g_nav_d">
-        <!-- <li v-for="(item,idx) in kinds" :key="idx" :class="{active:idx===active}" @click="tt(idx)" /> -->
-        <li v-for="(item,idx) in kinds" :key="idx" :class="active==idx?'active':''" @click="tt(idx)" />
-      </ul>
-      </div>
-      <News/>
-    <Guild/>
-   <Srt/>
-   
-      <Top/>
-      <Gfooter />
+  <div id="home">
+    <div class="container">
+      <header>中国菠萝产销对接大数据</header>
+      <main class="top-data">
+        <div class="t-data-left">
+          <span class="title">公司+渠道+订单</span>
+        </div>
+        <div class="t-data-center">
+          <div class="t-data-center-top">
+            <span class="title">全国菠萝价格行情</span>
+            <div class="zhexian">
+              <div class="month-quotation">
+                <span class="month-title">近三十天价格行情</span>
+                <div class="center" ref="month_quotation"></div>
+              </div>
+              <div class="year-quotation">
+                <span class="year-title">2019年价格行情</span>
+                <div class="center" ref="year_quotation"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="t-data-center-down">
+            <span class="title">产地菠萝每月上市分布</span>
+          </div>
+        </div>
+        <div class="t-data-right">
+          <span class="title">公司+农户+基地</span>
+        </div>
+      </main>
+      <main class="down-data">
+        <div class="down-data-main1">
+          <span class="title">采购商订单发布</span>
+        </div>
+        <div class="down-data-main2">
+          <span class="title">菠萝流通分布系统</span>
+        </div>
+        <div class="down-data-main3">
+          <span class="title">果农鲜果上市发布</span>
+        </div>
+      </main>
+    </div>
+    <div ref="chart1" style="width:100%;height:376px"></div>
   </div>
 </template>
 
 <script>
-  import Gfooter from '../components/Gfooter.vue';
-  import Gheader from '../components/Gheader.vue';
-  import Lunbo from '../components/lunbo.vue';
-  import News from '../components/news.vue';
-  import Guild from '../components/Guild.vue';
-  import Top from '../components/reTop.vue';
-  import Srt from '../components/Script.vue';
-  export default {
-    components: {
-      Gfooter,
-      Gheader,
-      Lunbo,
-      News,
-      Guild,
-      Srt,
-      Top
-    },
-    data() {
-      return {
-        kinds: [
-            [{
-              imgs: require('../assets/img/T1MXWsBghv1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1tu_bBTxv1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1u_A_B4bv1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1uZDsByhv1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1yuC_B5h_1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T11gZvBChQ1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T12V_jBQDv1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T18pxjBmD_1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T10eDbBmVT1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T10eDbBmVT1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            }],
-            [{
-              imgs: require('../assets/img/T10eDbBmVT1RCvBVdK_195_129.png'),
-              title: "排行榜1"
-            },
-            {
-              imgs: require('../assets/img/T1aJWbBm__1RCvBVdK_195_129.png'),
-              title: "排行榜1"
-            },
-            {
-              imgs: require('../assets/img/T1cEZsBgJT1RCvBVdK_195_129.png'),
-              title: "排行榜1"
-            },
-            {
-              imgs: require('../assets/img/T1BZd_BgD_1RCvBVdK_195_129.png'),
-              title: "排行榜1"
-            },
-            {
-              imgs: require('../assets/img/T1eQhgBjWv1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1FO_bBQWT1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1Ii_bBmbb1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1J9_vBgxb1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T1K0__BTYv1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            },
-            {
-              imgs: require('../assets/img/T10eDbBmVT1RCvBVdK_195_129.png'),
-              title: "排行榜"
-            }]
-       ],
-      active: 0
-      }
-    },
-    methods: {
-      tt(idx) {
-        this.active = idx;
-        // console.log(kinds.left);
+import echarts from "echarts";
+// import Gfooter from '../components/Gfooter.vue';
+// import Gheader from '../components/Gheader.vue';
+// import Lunbo from '../components/lunbo.vue';
+// import News from '../components/news.vue';
+// import Guild from '../components/Guild.vue';
+// import Top from '../components/reTop.vue';
+// import Srt from '../components/Script.vue';
+export default {
+  name: "ecahrts1",
+  mounted() {
+    console.log(this.$refs.chart1);
+    this.initChart2();
+  },
+  methods: {
+    initChart2() {
+      var base = +new Date(2016, 9, 3);
+      var oneDay = 24 * 3600 * 1000;
+      var valueBase = Math.random() * 300;
+      var valueBase2 = Math.random() * 50;
+      var data = [];
+      var data2 = [];
 
+      for (var i = 1; i < 10; i++) {
+        var now = new Date((base += oneDay));
+        var dayStr = [
+          now.getFullYear(),
+          now.getMonth() + 1,
+          now.getDate()
+        ].join("-");
+
+        valueBase = Math.round((Math.random() - 0.5) * 20 + valueBase);
+        valueBase <= 0 && (valueBase = Math.random() * 300);
+        data.push([dayStr, valueBase]);
+
+        valueBase2 = Math.round((Math.random() - 0.5) * 20 + valueBase2);
+        valueBase2 <= 0 && (valueBase2 = Math.random() * 50);
+        data2.push([dayStr, valueBase2]);
       }
+
+      var option = {
+        title: {
+          text: "堆叠区域图"
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
+            label: {
+              backgroundColor: "#6a7985"
+            }
+          }
+        },
+        legend: {
+          data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"]
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: "category",
+            boundaryGap: false,
+            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+          }
+        ],
+        yAxis: [
+          {
+            type: "value"
+          }
+        ],
+        series: [
+          {
+            name: "搜索引擎",
+            type: "line",
+            stack: "总量",
+            label: {
+              normal: {
+                show: true,
+                position: "top"
+              }
+            },
+            areaStyle: { normal: {} },
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+          }
+        ]
+      };
+      // 基于准备好的dom，初始化echarts实例
+      var monthChart = echarts.init(this.$refs.month_quotation);
+      // 使用刚指定的配置项和数据显示图表。
+      monthChart.setOption(option);
+
+      // 年份
+       var yearChart = echarts.init(this.$refs.year_quotation);
+      // 使用刚指定的配置项和数据显示图表。
+      yearChart.setOption(option);
+      //增加一条折线数据
+      // option.legend.data.push("win");
+      // option.series.push({
+      //   name: "win", // 系列名称
+      //   type: "line", // 图表类型，折线图line、散点图scatter、柱状图bar、饼图pie、雷达图radar
+      //   data: [112, 23, 45, 56, 233, 343, 454, 89, 343, 123, 45, 123]
+      // });
+      // myChart.setOption(option);
     }
   }
+};
 </script>
+
 <style scoped>
-  .g_nav {
-    height: 1.71rem;
+#home {
+  height: 100%;
+  width: 100%;
+  font-size: 0.12rem;
+  box-sizing: border-box;
+  background: url(../assets/img/bg.png) no-repeat center center;
+  background-size: 100% 100%;
+  /* overflow: hidden;  */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+#home .container {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.container header {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  font-size: 40px;
+  line-height: 70px;
+  color: #7efafc;
+  background: url(../assets/img/header_bg.png) no-repeat center center;
+  background-size: 100% 100%;
+}
+.container .title {
+  width: 264px;
+  height: 40px;
+  /* background: rgba(22, 48, 128, 1); */
+  /* border: 1px solid rgba(94, 220, 255, 1); */
+  font-size: 18px;
+  text-align: center;
+  color: rgba(222, 241, 255, 1);
+  margin-top: 18px;
+}
+.container .top-data {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  margin-bottom: 1%;
+}
+.top-data .t-data-left,
+.top-data .t-data-center,
+.top-data .t-data-right {
+  /* flex: 1; */
+  height: 100%;
+}
+.top-data .t-data-left {
+  margin-left: 1%;
+  width: 32%;
+  display: flex;
+  justify-content: center;
+  background: url(../assets/img/company_add_order.png) no-repeat center center;
+  background-size: 100% 100%;
+}
+.top-data .t-data-center {
+  margin: 0 1%;
+  width: 32%;
+}
+.t-data-center .t-data-center-top,
+.t-data-center .t-data-center-down {
+  height: 48.5%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    display: flex;
-    font-size: .12rem;
-    padding-top: .1rem;
-    box-sizing: border-box;
+  /*  */
+}
+
+.t-data-center .t-data-center-top {
+  /* height: 50%; */
+  background: url(../assets/img/pineapple_price.png) no-repeat center center;
+  background-size: 100% 100%;
+  margin-bottom: 3%;
+}
+.t-data-center-top .zhexian {
+  width: 100%;
+  height: 90%;
+  display: flex;
+}
+.t-data-center-top .zhexian .month-quotation,
+.t-data-center-top .zhexian .year-quotation {
+  width: 50%;
+  height: 100%;
+  padding-left: 22px;
+  display: flex;
     flex-direction: column;
+}
+ .month-quotation .month-title, .year-quotation .year-title {
+  width: 130px;
+  height: 14px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(222, 241, 255, 1);
+}
+.month-quotation .center,.year-quotation .center{
+  height: 92%;
+  width: 100%
+}
+.t-data-center .t-data-center-down {
+  /* height: 50%; */
+  background: url(../assets/img/Listing_distribution.png) no-repeat center
+    center;
+  background-size: 100% 100%;
+}
+.top-data .t-data-right {
+  margin-right: 1%;
+  width: 32%;
+  background: url(../assets/img/company_farmer_base.png) no-repeat center center;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+}
+.container .down-data {
+  height: 35%;
+  width: 100%;
+  display: flex;
 
-  }
-
-  .g_nav .g_nav_t {
-    height: 1.65rem;
-
-  }
-
-  .g_nav_t .g_nav1 {
-    display: flex;
-
-    flex-wrap: wrap;
-    justify-content: space-around;
-    text-align: center;
-  }
-
-  .g_nav1 li {}
-
-  .g_nav1 li img {
-    width: .65rem;
-    height: .43rem;
-  }
-
-  .g_nav .g_nav_d {
-    height: .6rem;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    padding-top: .08rem;
-  }
-
-  .g_nav_d li {
-    height: .1rem;
-    background: #e0dbdb;
-    width: .1rem;
-    border-radius: .1rem;
-    padding-top: .01rem;
-    margin-left: .05rem;
-    text-indent: -99999px;
-  }
-
-  .active {
-    background: #f20c59 !important;
-  }
+  /* justify-content: space-around  */
+}
+.down-data .down-data-main1,
+.down-data .down-data-main2,
+.down-data .down-data-main3 {
+  width: 32%;
+  height: 80%;
+  margin-bottom: 1%;
+  display: flex;
+  justify-content: center;
+}
+.down-data .down-data-main1 {
+  background: url(../assets/img/order_purchar.png) no-repeat center center;
+  background-size: 100% 100%;
+  margin-left: 1%;
+}
+.down-data .down-data-main2 {
+  background: url(../assets/img/circulation_distribution.png) no-repeat center
+    center;
+  background-size: 100% 100%;
+  margin: 0 1%;
+}
+.down-data .down-data-main3 {
+  background: url(../assets/img/release_purchase.png) no-repeat center center;
+  background-size: 100% 100%;
+  margin-right: 1%;
+}
 </style>
