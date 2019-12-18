@@ -11,11 +11,11 @@
             <span class="title">全国菠萝价格行情</span>
             <div class="zhexian">
               <div class="month-quotation">
-                <span class="month-title">近三十天价格行情</span>
+                <!-- <span class="month-title">近三十天价格行情</span> -->
                 <div class="center" ref="month_quotation"></div>
               </div>
               <div class="year-quotation">
-                <span class="year-title">2019年价格行情</span>
+                <!-- <span class="year-title">2019年价格行情</span> -->
                 <div class="center" ref="year_quotation"></div>
               </div>
             </div>
@@ -23,6 +23,7 @@
 
           <div class="t-data-center-down">
             <span class="title">产地菠萝每月上市分布</span>
+            <div class="listingDistribution" ref="listingDistribution"></div>
           </div>
         </div>
         <div class="t-data-right">
@@ -30,8 +31,9 @@
         </div>
       </main>
       <main class="down-data">
-        <div class="down-data-main1">
+        <div class="down-data-main1" >
           <span class="title">采购商订单发布</span>
+          <dv-active-ring-chart :config="ceshi" style="width:300px;height:300px" />
         </div>
         <div class="down-data-main2">
           <span class="title">菠萝流通分布系统</span>
@@ -47,6 +49,9 @@
 
 <script>
 import echarts from "echarts";
+// import { dvScrollBoard } from '@jiaminghi/data-view'
+
+// Vue.use(dvScrollBoard)
 // import Gfooter from '../components/Gfooter.vue';
 // import Gheader from '../components/Gheader.vue';
 // import Lunbo from '../components/lunbo.vue';
@@ -55,11 +60,42 @@ import echarts from "echarts";
 // import Top from '../components/reTop.vue';
 // import Srt from '../components/Script.vue';
 export default {
+  data() {
+    return {
+      ceshi: [
+        {
+          name: "周口",
+          value: 55
+        },
+        {
+          name: "南阳",
+          value: 120
+        },
+        {
+          name: "西峡",
+          value: 78
+        },
+        {
+          name: "驻马店",
+          value: 66
+        },
+        {
+          name: "新乡",
+          value: 80
+        }
+      ]
+    };
+  },
+
   name: "ecahrts1",
   mounted() {
     console.log(this.$refs.chart1);
     this.initChart2();
+    this.everyMonthListingDistribution();
   },
+  //   components:{
+  // dvScrollBoard
+  //   },
   methods: {
     initChart2() {
       var base = +new Date(2016, 9, 3);
@@ -88,41 +124,150 @@ export default {
 
       var option = {
         title: {
-          text: "堆叠区域图"
+          text: "近三十天价格行情",
+          textStyle: {
+            color: "#DEF1FF",
+            fontSize: 14
+          }
         },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "cross",
             label: {
-              backgroundColor: "#6a7985"
+              backgroundColor: {
+                type: "linear",
+                x: 0,
+                y: 0,
+                x2: 1,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "#286CE9" // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "#01D1FF" // 100% 处的颜色
+                  }
+                ],
+                globalCoord: false // 缺省为 false
+              }
+              //鼠标停留提示背景色
             }
           }
         },
-        legend: {
-          data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"]
-        },
+        // legend: {
+        //   data: [ "搜索引擎"]
+        // },
         toolbox: {
           feature: {
             saveAsImage: {}
           }
         },
         grid: {
-          left: "3%",
+          left: "7%",
           right: "4%",
           bottom: "3%",
-          containLabel: true
+          containLabel: true,
+          borderColor: "transparent",
+          shadowColor: "blue",
+          shadowBlur: 10,
+          shadowOffsetX: 2,
+          shadowOffsetX: 2,
+          show: true
         },
         xAxis: [
           {
+            name: "(日份)",
+            nameLocation: "start",
             type: "category",
+            nameTextStyle: {
+              //坐标轴名称的字体样式
+              color: "#04CDF4"
+            },
+            axisLine: {
+              //X轴（或Y轴）那条线的样式设置
+              show: true,
+              lineStyle: {
+                color: "#5092C1",
+                // width:5,
+                width: 1,
+                type: "solid",
+
+                shadowColor: "blue",
+                shadowBlur: 10,
+                shadowOffsetX: 2,
+                shadowOffsetX: 2
+              }
+            },
+            axisPointer: {
+              //鼠标移到折线点上的设置
+
+              type: "line",
+              lineStyle: {
+                color: "#04CDF4"
+              },
+              shadowStyle: {
+                color: "#04CDF4"
+              }
+            },
+            splitArea: {
+              //坐标轴在 grid 区域中的分隔区域
+              // show:true,
+              // areaStyle:{
+              //   color:"blue",
+              //   shadowColor: 'rgba(0, 0, 0, 0.5)',
+              //   shadowBlur: 10
+              // }
+            },
+            splitLine: {
+              //坐标轴间隔线
+              // show: true,
+              // lineStyle: {
+              //   // 使用深浅的间隔色
+              //   color: ["blue", "green"],
+              //   shadowColor: "green",
+              //   shadowBlur: 10,
+              //   type:'dashed'
+              // }
+            },
             boundaryGap: false,
-            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+            data: ["1日", "5日", "10日", "15日", "20日", "25日", "30日"]
           }
         ],
+        //
         yAxis: [
           {
-            type: "value"
+            splitLine: {
+              //坐标轴间隔线
+              show: true,
+              lineStyle: {
+                //   // 使用深浅的间隔色
+                color: "#1C4E8A",
+                shadowColor: "#1C4E8A",
+                shadowBlur: 10,
+                type: "solid"
+              }
+            },
+            name: "(价格)",
+            type: "value",
+            nameTextStyle: {
+              //坐标轴名称的字体样式
+              color: "#04CDF4"
+            },
+            nameLocation: "end",
+            axisLine: {
+              lineStyle: {
+                width: 0,
+                color: "#5092C1",
+                type: "solid",
+                shadowColor: "#04CDF4",
+                shadowBlur: 10,
+                shadowOffsetX: 2,
+                shadowOffsetX: 2
+              }
+            }
           }
         ],
         series: [
@@ -130,14 +275,41 @@ export default {
             name: "搜索引擎",
             type: "line",
             stack: "总量",
+            itemStyle: {
+              borderWidth: 3, //拐点边框颜色
+              color: {
+                type: "linear",
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "#04CDF4" // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "#0A357B" // 100% 处的颜色
+                  }
+                ],
+                global: false // 缺省为 false
+              }
+            },
+            lineStyle: {
+              color: "#04CDF4",
+              shadowColor: "#04CDF4",
+              shadowBlur: 10,
+              type: "solid"
+            },
             label: {
               normal: {
-                show: true,
+                show: false,
                 position: "top"
               }
             },
             areaStyle: { normal: {} },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+            data: [20.0, 35.0, 40.0, 25.0, 25.08, 78.0, 45.0]
           }
         ]
       };
@@ -147,7 +319,7 @@ export default {
       monthChart.setOption(option);
 
       // 年份
-       var yearChart = echarts.init(this.$refs.year_quotation);
+      var yearChart = echarts.init(this.$refs.year_quotation);
       // 使用刚指定的配置项和数据显示图表。
       yearChart.setOption(option);
       //增加一条折线数据
@@ -158,6 +330,46 @@ export default {
       //   data: [112, 23, 45, 56, 233, 343, 454, 89, 343, 123, 45, 123]
       // });
       // myChart.setOption(option);
+    },
+    // 柱状图
+    everyMonthListingDistribution() {
+      let option = {
+        legend: {},
+        tooltip: {},
+        dataset: {
+          dimensions: ["product", "2015", "2016", "2017"],
+          source: [
+            {
+              product: "Matcha Latte",
+              "2015": 43.3,
+              "2016": 85.8,
+              "2017": 93.7
+            },
+            { product: "Milk Tea", "2015": 83.1, "2016": 73.4, "2017": 55.1 },
+            {
+              product: "Cheese Cocoa",
+              "2015": 86.4,
+              "2016": 65.2,
+              "2017": 82.5
+            },
+            {
+              product: "Walnut Brownie",
+              "2015": 72.4,
+              "2016": 53.9,
+              "2017": 39.1
+            }
+          ]
+        },
+        xAxis: { type: "category" },
+        yAxis: {},
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
+      };
+      //
+      var listingDistribution = echarts.init(this.$refs.listingDistribution);
+      // 使用刚指定的配置项和数据显示图表。
+      listingDistribution.setOption(option);
     }
   }
 };
@@ -236,6 +448,10 @@ export default {
   /*  */
 }
 
+.t-data-center-down .listingDistribution {
+  height: 95%;
+  width: 100%;
+}
 .t-data-center .t-data-center-top {
   /* height: 50%; */
   background: url(../assets/img/pineapple_price.png) no-repeat center center;
@@ -253,18 +469,20 @@ export default {
   height: 100%;
   padding-left: 22px;
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
 }
- .month-quotation .month-title, .year-quotation .year-title {
+.month-quotation .month-title,
+.year-quotation .year-title {
   width: 130px;
   height: 14px;
   font-size: 14px;
   font-weight: bold;
   color: rgba(222, 241, 255, 1);
 }
-.month-quotation .center,.year-quotation .center{
+.month-quotation .center,
+.year-quotation .center {
   height: 92%;
-  width: 100%
+  width: 100%;
 }
 .t-data-center .t-data-center-down {
   /* height: 50%; */
