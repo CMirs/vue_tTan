@@ -23,6 +23,7 @@
 
           <div class="t-data-center-down">
             <span class="title">产地菠萝每月上市分布</span>
+            <div class="purchase"></div>
             <div class="listingDistribution" ref="listingDistribution"></div>
           </div>
         </div>
@@ -31,15 +32,21 @@
         </div>
       </main>
       <main class="down-data">
-        <div class="down-data-main1" >
+        <div class="down-data-main1">
           <span class="title">采购商订单发布</span>
-          <dv-active-ring-chart :config="ceshi" style="width:300px;height:300px" />
+          <div class="purchase-scroll">
+            <dv-scroll-board :config="config" />
+          </div>
         </div>
+
         <div class="down-data-main2">
           <span class="title">菠萝流通分布系统</span>
         </div>
         <div class="down-data-main3">
           <span class="title">果农鲜果上市发布</span>
+          <div class="fruit-growers-scroll">
+            <dv-scroll-board :config="config" />
+          </div>
         </div>
       </main>
     </div>
@@ -62,28 +69,29 @@ import echarts from "echarts";
 export default {
   data() {
     return {
-      ceshi: [
-        {
-          name: "周口",
-          value: 55
-        },
-        {
-          name: "南阳",
-          value: 120
-        },
-        {
-          name: "西峡",
-          value: 78
-        },
-        {
-          name: "驻马店",
-          value: 66
-        },
-        {
-          name: "新乡",
-          value: 80
-        }
-      ]
+      config: {
+        // header: ['时间', '病害信息', '数量', '标段'],
+        data: [
+          ["2019-07-01 19:25:00", "路面危害-松散", "5", "xxxxxxx"],
+          ["2019-07-02 17:25:00", "路面危害-路面油污清理", "13", "xxxxxxx"],
+          ["2019-07-03 16:25:00", "交安设施-交通标志牌结构", "6", "xxxxxxx"],
+          ["2019-07-04 15:25:00", "路基危害-防尘网", "2", "xxxxxxx"],
+          ["2019-07-05 14:25:00", "交安设施-交通标志牌结构", "1", "xxxxxxx"],
+          ["2019-07-06 13:25:00", "路面危害-松散", "3", "xxxxxxx"],
+          ["2019-07-07 12:25:00", "路基危害-防尘网", "4", "xxxxxxx"],
+          ["2019-07-08 11:25:00", "路面危害-路面油污清理", "2", "xxxxxxx"],
+          ["2019-07-09 10:25:00", "交安设施-交通标志牌结构", "5", "xxxxxxx"],
+          ["2019-07-10 09:25:00", "路基危害-防尘网", "3", "xxxxxxx"]
+        ],
+        index: true,
+        columnWidth: [50, 170, 300],
+        align: ["center"],
+        rowNum: 7,
+        headerBGC: "#1981f6",
+        headerHeight: 45,
+        oddRowBGC: "rgba(0, 44, 81, 0.8)",
+        evenRowBGC: "rgba(10, 29, 50, 0.8)"
+      }
     };
   },
 
@@ -128,7 +136,7 @@ export default {
           textStyle: {
             color: "#DEF1FF",
             fontSize: 14
-          }
+          } //
         },
         tooltip: {
           trigger: "axis",
@@ -180,6 +188,7 @@ export default {
         xAxis: [
           {
             name: "(日份)",
+                // nameGap:20,//坐标轴名称与轴线之间的距离
             nameLocation: "start",
             type: "category",
             nameTextStyle: {
@@ -251,6 +260,7 @@ export default {
               }
             },
             name: "(价格)",
+                // nameGap:25,//坐标轴名称与轴线之间的距离
             type: "value",
             nameTextStyle: {
               //坐标轴名称的字体样式
@@ -334,37 +344,200 @@ export default {
     // 柱状图
     everyMonthListingDistribution() {
       let option = {
-        legend: {},
+        legend: {
+          right:70,//位置 
+          itemWidth:20,//图例标记的图形宽度 
+          itemHeight:20
+          },//图例组件
         tooltip: {},
         dataset: {
-          dimensions: ["product", "2015", "2016", "2017"],
+          dimensions: ["product", "广东菠萝主义", "徐闻菠萝"],
           source: [
             {
-              product: "Matcha Latte",
-              "2015": 43.3,
-              "2016": 85.8,
-              "2017": 93.7
-            },
-            { product: "Milk Tea", "2015": 83.1, "2016": 73.4, "2017": 55.1 },
-            {
-              product: "Cheese Cocoa",
-              "2015": 86.4,
-              "2016": 65.2,
-              "2017": 82.5
+              product: "1",
+
+              广东菠萝主义: 85.8,
+              徐闻菠萝: 93.7
             },
             {
-              product: "Walnut Brownie",
-              "2015": 72.4,
-              "2016": 53.9,
-              "2017": 39.1
+              product: "2",
+              广东菠萝主义: 73.4,
+              徐闻菠萝: 55.1
+            },
+            {
+              product: "3",
+
+              广东菠萝主义: 65.2,
+              徐闻菠萝: 82.5
+            },
+            {
+              product: "4",
+
+              广东菠萝主义: 53.9,
+              徐闻菠萝: 39.1
+            },
+            {
+              product: "5",
+
+              广东菠萝主义: 85.8,
+              徐闻菠萝: 93.7
+            },
+            {
+              product: "6",
+              广东菠萝主义: 73.4,
+              徐闻菠萝: 55.1
+            },
+            {
+              product: "7",
+
+              广东菠萝主义: 65.2,
+              徐闻菠萝: 82.5
+            },
+            {
+              product: "8",
+
+              广东菠萝主义: 53.9,
+              徐闻菠萝: 39.1
+            },
+            {
+              product: "9",
+
+              广东菠萝主义: 85.8,
+              徐闻菠萝: 93.7
+            },
+            {
+              product: "10",
+              广东菠萝主义: 73.4,
+              徐闻菠萝: 55.1
+            },
+            {
+              product: "11",
+
+              广东菠萝主义: 65.2,
+              徐闻菠萝: 82.5
+            },
+            {
+              product: "12",
+
+              广东菠萝主义: 53.9,
+              徐闻菠萝: 39.1
             }
           ]
         },
-        xAxis: { type: "category" },
-        yAxis: {},
+        xAxis: {
+          type: "category",
+          name: "(月份)",
+          // axisLabel:{ 
+          //   show:false
+          // },
+
+          nameGap:25,//坐标轴名称与轴线之间的距离
+          nameLocation: "start",
+          nameTextStyle: {
+            //坐标轴名称的字体样式
+            color: "#04CDF4"
+          },
+          axisTick:{       //y轴刻度线
+          show:true
+        },
+          axisLine: {
+            //X轴（或Y轴）那条线的样式设置
+            show: false,
+            lineStyle: {
+              color: "#5092C1",
+              // width:5,
+              width: 5,
+              type: "solid",
+
+              shadowColor: "blue",
+              shadowBlur: 10,
+              shadowOffsetX: 2,
+              shadowOffsetX: 2
+            }
+          }
+        },
+        yAxis: {
+           axisLabel : {
+            //  去除y轴的数值显示
+            formatter: function(){
+
+                  return "*";
+
+            }
+
+        },
+          axisLine: {
+            //X轴（或Y轴）那条线的样式设置
+            show:false,
+          },
+          axisTick: { show: true},
+          splitLine: {
+            //坐标轴间隔线
+            show: true,
+            lineStyle: {
+              //   // 使用深浅的间隔色
+              color: "#65C6E7",
+              type: "solid",
+              opacity:.5
+            }
+          },
+          type: "value",
+        
+          nameTextStyle: {
+            //坐标轴名称的字体样式
+            color: "#04CDF4"
+          },
+     
+          nameLocation: "end",
+          axisLine: {
+            lineStyle: {
+              width: 0,
+              color: "#5092C1",
+              type: "solid",
+              shadowColor: "#04CDF4",
+              shadowBlur: 10,
+              shadowOffsetX: 2,
+              shadowOffsetX: 2
+            }
+          }
+        },
         // Declare several bar series, each will be mapped
         // to a column of dataset.source by default.
-        series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
+        series: [
+          {
+            type: "bar",
+            barGap: 0, //不同系列的柱间距离
+
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                {
+                  offset: 0,
+                  color: "#EC1B00"
+                },
+                {
+                  offset: 1,
+                  color: "#EB5A2F"
+                }
+              ])
+            }
+          },
+          {
+            type: "bar",
+            barGap: 0,
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                {
+                  offset: 0,
+                  color: "#00ABB3"
+                },
+                {
+                  offset: 1,
+                  color: "#01F0FF"
+                }
+              ])
+            }
+          }
+        ]
       };
       //
       var listingDistribution = echarts.init(this.$refs.listingDistribution);
@@ -512,18 +685,27 @@ export default {
   height: 80%;
   margin-bottom: 1%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .down-data .down-data-main1 {
   background: url(../assets/img/order_purchar.png) no-repeat center center;
   background-size: 100% 100%;
   margin-left: 1%;
 }
+.down-data-main1 .purchase-scroll {
+  height: 92%;
+  width: 100%;
+}
 .down-data .down-data-main2 {
   background: url(../assets/img/circulation_distribution.png) no-repeat center
     center;
   background-size: 100% 100%;
   margin: 0 1%;
+}
+.down-data-main3 .fruit-growers-scroll {
+  height: 92%;
+  width: 100%;
 }
 .down-data .down-data-main3 {
   background: url(../assets/img/release_purchase.png) no-repeat center center;
