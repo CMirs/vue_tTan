@@ -5,9 +5,9 @@
       <main class="top-data">
         <div class="t-data-left">
           <span class="title">公司+渠道+订单</span>
-          <div class="china-over" ref="overlayGraph"> 
-           <!-- <overlay-graph/>-->
-          </div>
+          <!-- <div class="china-over" ref="overlayGraph">  -->
+           <overlay-graph/>
+          <!-- </div> -->
     
         </div>
         <div class="t-data-center">
@@ -104,7 +104,7 @@ export default {
     console.log(this.$refs.chart1);
     this.initChart2();
     this.everyMonthListingDistribution();
-    this.overlayGraph()
+    // this.overlayGraph()
   },
     components:{
   overlayGraph

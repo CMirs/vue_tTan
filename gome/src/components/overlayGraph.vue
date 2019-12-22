@@ -1,19 +1,40 @@
-<template >
+<template>
   <div class="overlay-graph" ref="overlayGraph"></div>
 </template>
 <script>
-import echarts from "echarts";
-require("../assets/map/china.json"); //引入地图
-export default {
-  data() {
-    return {};
-  },
-  mounted() {
-    this.overlayGraph();
-  },
-  methods: {
-    overlayGraph() {
-    var chinaGeoCoordMap = {
+  // import echarts from "echarts";
+  export default {
+    data() {
+      return { };
+    },
+    mounted() {
+      // var overlayGraphChart = echarts.init(this.$refs.overlayGraph);
+      // 使用刚指定的配置项和数据显示图表。
+      // overlayGraphChart.setOption(this.option);
+      // this.overlayGraph();
+      this.drawLine();
+    },
+    methods: {
+      // convertData(data) {
+      //   var res = [];
+      //   for (var i = 0; i < data.length; i++) {
+      //     var geoCoord = this.geoCoordMap[data[i].name];
+      //     if (geoCoord) {
+      //       res.push({
+      //         name: data[i].name,
+      //         value: geoCoord.concat(data[i].value)
+      //       });
+      //     }
+      //   }
+      //   // console.log(res)
+      //   return res;
+      // },
+
+      drawLine(){
+        // 基于准备好的dom，初始化echarts实例
+        var myChartChina = this.$echarts.init(this.$refs.overlayGraph); 
+
+            var chinaGeoCoordMap = {
 		'黑龙江': [127.9688, 45.368],
 		'内蒙古': [110.3467, 41.4899],
 		"吉林": [125.8154, 44.2584],
@@ -46,7 +67,8 @@ export default {
 		"海南": [110.3893, 19.8516],
 		'上海': [121.4648, 31.2891]
 	};
-	var chinaDatas = [
+
+            var chinaDatas = [
 		[{
 			name: '黑龙江',
 			value: 0
@@ -127,14 +149,15 @@ export default {
 			value: 0
 		}],	[{
 			name: '海南',
-			value: 0
+			value: 1
 		}],	[{
 			name: '上海',
-			value: 1
+			value: 0
 		}]
 	];
 
-	var convertData = function(data) {
+
+  var convertData = function(data) {
 		var res = [];
 		for(var i = 0; i < data.length; i++) {
 			var dataItem = data[i];
@@ -151,7 +174,8 @@ export default {
 		}
 		return res;
 	};
-	var series = [];
+
+            var series = [];
 	[['北京市', chinaDatas]].forEach(function(item, i) {
 	    console.log(item)
 		series.push({
@@ -248,7 +272,8 @@ export default {
 		);
 	});
 
-	var option = {
+        // 绘制图表
+       var optionMap = {  
 		tooltip: {
 			trigger: 'item',
 			backgroundColor: 'rgba(166, 200, 76, 0.82)',
@@ -299,17 +324,19 @@ export default {
 			}
 		},
 		series: series
-	};
-      var overlayGraphChart = echarts.init(this.$refs.overlayGraph);
-      // 使用刚指定的配置项和数据显示图表。
-      overlayGraphChart.setOption(option);
+	}
+     
+        myChartChina.setOption(optionMap);
+        window.onresize=function(){
+            myChartChina.resize();
+        }
+      }
     }
-  }
-};
+  };
 </script>
-<style  scoped>
-.overlay-graph {
-  width: 98%;
-  height: 95%;
-}
+<style scoped>
+  .overlay-graph {
+    width: 98%;
+    height: 95%;
+  }
 </style>
