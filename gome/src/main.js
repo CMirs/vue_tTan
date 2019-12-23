@@ -2,13 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 // 引入ui框架
 import echarts from 'echarts'
-<<<<<<< HEAD
 import china from './assets/map/china.json'
 echarts.registerMap('china',china)
-=======
-import 'echarts-gl'
-import china from './assets/map/china.json'
->>>>>>> 86ca6b698e67bc157c5bbb200619664ce4bc880c
 // 将自动注册所有组件为全局组件
 import dataV from '@jiaminghi/data-view'
 
