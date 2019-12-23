@@ -5,9 +5,16 @@
       <main class="top-data">
         <div class="t-data-left">
           <span class="title">公司+渠道+订单</span>
+<<<<<<< HEAD
           <div class="china-over" ref="overlayGraph">
             <!-- <overlay-graph/>-->
           </div>
+=======
+          <!-- <div class="china-over" ref="overlayGraph">  -->
+           <overlay-graph/>
+          <!-- </div> -->
+    
+>>>>>>> 86ca6b698e67bc157c5bbb200619664ce4bc880c
         </div>
         <div class="t-data-center">
           <div class="t-data-center-top">
@@ -107,11 +114,15 @@ export default {
     console.log(this.$refs.chart1);
     this.initChart2();
     this.everyMonthListingDistribution();
+<<<<<<< HEAD
     this.overlayGraph();
   },
   components: {
     overlayGraph,
     circulationDistribution
+=======
+    // this.overlayGraph()
+>>>>>>> 86ca6b698e67bc157c5bbb200619664ce4bc880c
   },
   methods: {
     initChart2() {
