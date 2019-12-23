@@ -2,11 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 // 引入ui框架
 import echarts from 'echarts'
-
+import china from './assets/map/china.json'
+echarts.registerMap('china',china)
 // 将自动注册所有组件为全局组件
 import dataV from '@jiaminghi/data-view'
 
 Vue.use(dataV) 
+
 
 Vue.prototype.$echarts = echarts
 
