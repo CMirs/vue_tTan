@@ -62,6 +62,7 @@
 
 <script>
 import echarts from "echarts";
+import axios from 'axios';
 // import { dvScrollBoard } from '@jiaminghi/data-view'
 require("../assets/map/china.json"); //引入地图
 // Vue.use(dvScrollBoard)
@@ -108,12 +109,23 @@ export default {
     this.initChart2();
     this.everyMonthListingDistribution();
     this.overlayGraph();
+    this.ceshi()
   },
   components: {
     overlayGraph,
     circulationDistribution
   },
   methods: {
+    ceshi(){
+			console.log("46545")
+			axios.get('/pineapple/getPineappleNews')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+		},
     initChart2() {
       var base = +new Date(2016, 9, 3);
       var oneDay = 24 * 3600 * 1000;

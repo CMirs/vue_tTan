@@ -2,6 +2,7 @@
   <div class="overlay-graph" ref="overlayGraph"></div>
 </template>
 <script>
+
   // import echarts from "echarts";
   export default {
     data() {
@@ -10,11 +11,13 @@
     mounted() {
       // var overlayGraphChart = echarts.init(this.$refs.overlayGraph);
       // 使用刚指定的配置项和数据显示图表。
-      // overlayGraphChart.setOption(this.option);
+      // overlayGraphChart.setOption(this.option); 
       // this.overlayGraph();
-      this.drawLine();
+	  this.drawLine();
+
     },
     methods: {
+		
       // convertData(data) {
       //   var res = [];
       //   for (var i = 0; i < data.length; i++) {
